@@ -3,6 +3,7 @@
 . /etc/profile.d/modules.sh
 module add deploy
 module add gcc/${GCC_VERSION}
+module add cmake
 cd ${WORKSPACE}/build-${BUILD_NUMBER}
 
 echo "All tests have passed, will now build into ${SOFT_DIR}"
