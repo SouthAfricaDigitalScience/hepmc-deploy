@@ -15,9 +15,8 @@
 
 . /etc/profile.d/modules.sh
 module add ci
-whoami
-cd ${WORKSPACE}/${NAME}-${VERSION}/build-${BUILD_NUMBER}
-make check
+module  add  gcc/${GCC_VERSION}
+cd ${WORKSPACE}/build-${BUILD_NUMBER}
 
 echo $?
 
@@ -35,14 +34,19 @@ proc ModulesHelp { } {
 }
 
 module-whatis   "$NAME $VERSION."
-setenv       GMP_VERSION       $VERSION
-setenv       GMP_DIR           /data/ci-build/$::env(SITE)/$::env(OS)/$::env(ARCH)/$NAME/$VERSION
-prepend-path LD_LIBRARY_PATH   $::env(GMP_DIR)/lib
-prepend-path GCC_INCLUDE_DIR   $::env(GMP_DIR)/include
-prepend-path CFLAGS            "-I$::env(GMP_DIR)/include"
-prepend-path LDFLAGS           "-L$::env(GMP_DIR)/lib"
+setenv       HEPMC_VERSION       $VERSION
+setenv       HEPMC_DIR           /data/ci-build/$::env(SITE)/$::env(OS)/$::env(ARCH)/$NAME/$VERSION-gcc-${GCC_VERSION}
+prepend-path PATH                           $::env(HEPMC_DIR)/bin
+prepend-path LD_LIBRARY_PATH   $::env(HEPMC_DIR)/lib
+prepend-path GCC_INCLUDE_DIR   $::env(HEPMC_DIR)/include
+prepend-path CFLAGS            "-I$::env(HEPMC_DIR)/include"
+prepend-path LDFLAGS           "-L$::env(HEPMC_DIR)/lib"
 MODULE_FILE
 ) > modules/$VERSION
 
-mkdir -vp ${LIBRARIES}/${NAME}
-cp -v modules/$VERSION ${LIBRARIES}/${NAME}
+mkdir -vp ${HEP}/${NAME}
+cp -v modules/$VERSION ${HEP}/${NAME}-gcc-${GCC_VERSION}
+echo "is the module available ?"
+module  avail ${NAME}
+echo "Checking the module"
+module add ${NAME}/${VERSION}-gcc-${GCC_VERSION}

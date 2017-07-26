@@ -13,6 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# this is specifically for hepmc-3
+
 . /etc/profile.d/modules.sh
 module add ci
 module add cmake
@@ -41,10 +43,11 @@ else
   echo "continuing from previous builds, using source at " ${SRC_DIR}/${SOURCE_FILE}
 fi
 tar xjf  ${SRC_DIR}/${SOURCE_FILE} -C ${WORKSPACE} --skip-old-files
-mkdir -p ${WORKSPACE}/${NAME}-${VERSION}/build-${BUILD_NUMBER}
-cd ${WORKSPACE}/${NAME}-${VERSION}/build-${BUILD_NUMBER}
-cmake ../ -DCMAKE_INSTALL_PREFIX=${SOFT_DIR}-gcc-${GCC_VERSION} \
+mkdir -p ${WORKSPACE}/build-${BUILD_NUMBER}
+cd ${WORKSPACE}/build-${BUILD_NUMBER}
+cmake ../${NAME} -DCMAKE_INSTALL_PREFIX=${SOFT_DIR}-gcc-${GCC_VERSION} \
 -DHEPMC_BUILD_EXAMPLES=ON \
--DHEPMC_INSTALL_INTERFACES=ON
+-DHEPMC_INSTALL_INTERFACES=ON \
+
 
 make
