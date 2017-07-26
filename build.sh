@@ -42,7 +42,7 @@ elif [ -e ${SRC_DIR}/${SOURCE_FILE}.lock ] ; then
 else
   echo "continuing from previous builds, using source at " ${SRC_DIR}/${SOURCE_FILE}
 fi
-tar xjf  ${SRC_DIR}/${SOURCE_FILE} -C ${WORKSPACE} --skip-old-files
+tar xzf  ${SRC_DIR}/${SOURCE_FILE} -C ${WORKSPACE} --skip-old-files
 mkdir -p ${WORKSPACE}/build-${BUILD_NUMBER}
 cd ${WORKSPACE}/build-${BUILD_NUMBER}
 cmake ../${NAME} -DCMAKE_INSTALL_PREFIX=${SOFT_DIR}-gcc-${GCC_VERSION} \
