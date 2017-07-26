@@ -17,11 +17,6 @@
 module add ci
 module  add  gcc/${GCC_VERSION}
 cd ${WORKSPACE}/build-${BUILD_NUMBER}/outputs/bin/
-echo "run the examples"
-for file in `find . -executable -name "*.exe" `; do
-  echo "running $file"
-  $file
-done
 
 echo $?
 
@@ -55,3 +50,11 @@ echo "is the module available ?"
 module  avail ${NAME}
 echo "Checking the module"
 module add ${NAME}/${VERSION}-gcc-${GCC_VERSION}
+
+echo "checking examples"
+
+echo  "basic tree"
+basic_tree.exe
+
+echo "wrapper"
+hepevt_wrapper_example.exe
