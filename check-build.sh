@@ -42,10 +42,10 @@ prepend-path GCC_INCLUDE_DIR   $::env(HEPMC_DIR)/include
 prepend-path CFLAGS            "-I$::env(HEPMC_DIR)/include"
 prepend-path LDFLAGS           "-L$::env(HEPMC_DIR)/lib"
 MODULE_FILE
-) > modules/$VERSION
+) > modules/$VERSION-gcc-${GCC_VERSION}
 
 mkdir -vp ${HEP}/${NAME}
-cp -v modules/$VERSION ${HEP}/${NAME}-gcc-${GCC_VERSION}
+cp -v modules/$VERSION-gcc-${GCC_VERSION} ${HEP}/${NAME}
 echo "is the module available ?"
 module  avail ${NAME}
 echo "Checking the module"
