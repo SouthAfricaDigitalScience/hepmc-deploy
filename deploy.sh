@@ -3,9 +3,16 @@
 . /etc/profile.d/modules.sh
 module add deploy
 module add gcc/${GCC_VERSION}
-echo ${SOFT_DIR}
-cd ${WORKSPACE}/${NAME}-${VERSION}/build-${BUILD_NUMBER}
+cd ${WORKSPACE}/build-${BUILD_NUMBER}
+
 echo "All tests have passed, will now build into ${SOFT_DIR}"
+rm -rf *
+cmake ../${NAME}${VERSION} \
+-DCMAKE_INSTALL_PREFIX=${SOFT_DIR}-gcc-${GCC_VERSION} \
+-DHEPMC_BUILD_EXAMPLES=ON \
+-DHEPMC_INSTALL_INTERFACES=ON
+make
+make install
 
 echo "Creating the modules file directory ${LIBRARIES}"
 mkdir -p ${LIBRARIES}/${NAME}

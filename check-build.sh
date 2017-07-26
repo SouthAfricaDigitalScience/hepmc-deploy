@@ -16,7 +16,12 @@
 . /etc/profile.d/modules.sh
 module add ci
 module  add  gcc/${GCC_VERSION}
-cd ${WORKSPACE}/build-${BUILD_NUMBER}
+cd ${WORKSPACE}/build-${BUILD_NUMBER}/outputs/bin/
+echo "run the examples"
+for file in `find . -executable -name "*.exe" `; do
+  echo "running $file"
+  $file
+done
 
 echo $?
 
