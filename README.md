@@ -21,6 +21,8 @@ However, since these represent circular dependencies, we first build the HEPMC s
 We build versions :
 
   1. 3.0.0
+  2. 2.6.9
+  3. 2.07-beta00
 
 # Usage
 

@@ -16,7 +16,7 @@ make
 make install
 
 echo "Creating the modules file directory ${LIBRARIES}"
-mkdir -p ${LIBRARIES}/${NAME}
+mkdir -p ${HEP}/${NAME}
 (
 cat <<MODULE_FILE
 #%Module1.0
@@ -35,7 +35,7 @@ prepend-path LD_LIBRARY_PATH   $::env(HEPMC_DIR)/lib
 prepend-path CFLAGS            "-I$::env(HEPMC_DIR)/include"
 prepend-path LDFLAGS           "-L$::env(HEPMC_DIR)/lib"
 MODULE_FILE
-) > ${LIBRARIES}/${NAME}/${VERSION}-gcc-${GCC_VERSION}
+) > ${HEP}/${NAME}/${VERSION}-gcc-${GCC_VERSION}
 
 echo "checking modulefile"
 module avail ${NAME}

@@ -15,10 +15,9 @@
 
 . /etc/profile.d/modules.sh
 module add ci
+module add cmake
 module  add  gcc/${GCC_VERSION}
 cd ${WORKSPACE}/build-${BUILD_NUMBER}
-
-echo $?
 
 make install
 mkdir -p ${REPO_DIR}
@@ -38,9 +37,8 @@ setenv       HEPMC_VERSION       $VERSION
 setenv       HEPMC_DIR           /data/ci-build/$::env(SITE)/$::env(OS)/$::env(ARCH)/$NAME/$VERSION-gcc-${GCC_VERSION}
 prepend-path PATH                           $::env(HEPMC_DIR)/bin
 prepend-path LD_LIBRARY_PATH   $::env(HEPMC_DIR)/lib
-prepend-path GCC_INCLUDE_DIR   $::env(HEPMC_DIR)/include
-prepend-path CFLAGS            "-I$::env(HEPMC_DIR)/include"
-prepend-path LDFLAGS           "-L$::env(HEPMC_DIR)/lib"
+setenv CPPFLAGS            "-I$::env(HEPMC_DIR)/include $CFLAGS"
+setenv LDFLAGS           "-L$::env(HEPMC_DIR)/lib $LDFLAGS"
 MODULE_FILE
 ) > modules/$VERSION-gcc-${GCC_VERSION}
 

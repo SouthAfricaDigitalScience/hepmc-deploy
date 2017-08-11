@@ -15,6 +15,7 @@
 
 . /etc/profile.d/modules.sh
 module add ci
+module add cmake
 module  add  gcc/${GCC_VERSION}
 cd ${WORKSPACE}/build-${BUILD_NUMBER}
 

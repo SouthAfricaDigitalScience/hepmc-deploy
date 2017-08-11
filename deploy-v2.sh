@@ -8,15 +8,16 @@ cd ${WORKSPACE}/build-${BUILD_NUMBER}
 
 echo "All tests have passed, will now build into ${SOFT_DIR}"
 rm -rf *
+cd ${WORKSPACE}/build-${BUILD_NUMBER}
 cmake ../${NAME}${VERSION} \
 -DCMAKE_INSTALL_PREFIX=${SOFT_DIR}-gcc-${GCC_VERSION} \
--DHEPMC_BUILD_EXAMPLES=ON \
--DHEPMC_INSTALL_INTERFACES=ON
+-Dmomentum=GEV \
+-Dlength=MM
 make
 make install
 
 echo "Creating the modules file directory ${LIBRARIES}"
-mkdir -p ${LIBRARIES}/${NAME}
+mkdir -p ${HEP}/${NAME}
 (
 cat <<MODULE_FILE
 #%Module1.0
@@ -35,7 +36,7 @@ prepend-path LD_LIBRARY_PATH   $::env(HEPMC_DIR)/lib
 prepend-path CFLAGS            "-I$::env(HEPMC_DIR)/include"
 prepend-path LDFLAGS           "-L$::env(HEPMC_DIR)/lib"
 MODULE_FILE
-) > ${LIBRARIES}/${NAME}/${VERSION}-gcc-${GCC_VERSION}
+) > ${HEP}/${NAME}/${VERSION}-gcc-${GCC_VERSION}
 
 echo "checking modulefile"
 module avail ${NAME}
